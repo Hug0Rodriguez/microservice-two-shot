@@ -14,7 +14,7 @@ function App(props) {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="hats">
-            <Route index element={<HatsList hats={props.hats} />} />
+            <Route path="/hats" element={<HatsList />} />
           </Route>
         </Routes>
       </div>
