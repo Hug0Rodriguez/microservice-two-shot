@@ -14,7 +14,7 @@ class HatDetailEncoder(ModelEncoder):
     model = Hat
     properties = [
         "id",
-        "material",
+        "fabric",
         "style",
         "color",
         "picture_url",
@@ -25,7 +25,7 @@ class HatListEncoder(ModelEncoder):
     model = Hat
     properties = [
         "id",
-        "material",
+        "fabric",
         "style",
         "color",
         "picture_url",
@@ -49,7 +49,7 @@ def api_list_hats(request):
         import_href = content["location"]
         location = LocationVO.objects.get(import_href=import_href)
         content["location"] = location
-
+        
     except LocationVO.DoesNotExist:
         return JsonResponse(
             {"message": "Invalid location"},
@@ -62,3 +62,26 @@ def api_list_hats(request):
         encoder=HatDetailEncoder,
         safe=False,
     )
+
+
+@require_http_methods(["DELETE", "GET"])
+def api_show_hats(request, id):
+
+    try:
+        hat = Hat.objects.get(id=id)
+    except Hat.DoesNotExist:
+        return JsonResponse(
+            {"message": "Invalid Hat ID"},
+            status=404,
+        )
+
+    if request.method == "GET":
+        return JsonResponse(
+            hat,
+            encoder=HatDetailEncoder,
+            safe=False,
+        )
+
+    else:
+        count, _ = Hat.objects.filter(id=id).delete()
+        return JsonResponse({"deleted": count > 0})

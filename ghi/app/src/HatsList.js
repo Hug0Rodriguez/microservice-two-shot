@@ -21,7 +21,7 @@ function HatsList() {
             <thead>
                 <tr>
                     <th scope="col">Image</th>
-                    <th scope="col">Material</th>
+                    <th scope="col">Fabric</th>
                     <th scope="col">Style</th>
                     <th scope="col">Color</th>
                 </tr>
@@ -30,8 +30,8 @@ function HatsList() {
                 {hats.map(hat => {
                     return (
                         <tr key={hat.id}>
-                            <td scope="row"><img src={hat.picture_url} alt={`Image of ${hat.material} ${hat.style} ${hat.color}`} className="img-thumbnail" style={{ maxWidth: '20em', maxHeight: '20em' }}/></td>
-                            <td>{hat.material}</td>
+                            <td scope="row"><img src={hat.picture_url} alt={`Image of ${hat.fabric} ${hat.style} ${hat.color}`} className="img-thumbnail" style={{ maxWidth: '20em', maxHeight: '20em' }}/></td>
+                            <td>{hat.fabric}</td>
                             <td> {hat.style}</td>
                             <td> {hat.color}</td>
                         </tr>
